@@ -1,0 +1,6 @@
+package ua.kpi.tef.controller;
+
+import javax.servlet.http.HttpServlet;
+
+public class Servlet extends HttpServlet {
+}
