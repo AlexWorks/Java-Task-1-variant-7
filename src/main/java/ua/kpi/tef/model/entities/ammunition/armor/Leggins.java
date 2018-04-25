@@ -1,7 +1,7 @@
 package ua.kpi.tef.model.entities.ammunition.armor;
 
 public class Leggins extends  Armor {
-    public Leggins(int price, double weight) {
-        super(price, weight);
+    public Leggins(String name, int price, double weight) {
+        super(name, price, weight);
     }
 }

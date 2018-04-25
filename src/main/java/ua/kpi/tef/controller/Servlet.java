@@ -18,8 +18,13 @@ public class Servlet extends HttpServlet {
 
     @Override
     public void init() {
-        this.service = new DBAmmunitionService();
-        this.data = service.getAmmunition();
+        try {
+            this.service = new DBAmmunitionService();
+            this.data = service.getAllAmmunition();
+            this.data.forEach(System.out::println);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

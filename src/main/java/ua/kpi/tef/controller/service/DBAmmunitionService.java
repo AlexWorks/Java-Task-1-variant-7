@@ -1,30 +1,68 @@
 package ua.kpi.tef.controller.service;
 import com.mysql.jdbc.Driver;
 import ua.kpi.tef.model.entities.ammunition.Ammunition;
+import ua.kpi.tef.model.entities.ammunition.armor.Boots;
+import ua.kpi.tef.model.entities.ammunition.armor.Chestplate;
+import ua.kpi.tef.model.entities.ammunition.armor.Helmet;
+import ua.kpi.tef.model.entities.ammunition.armor.Leggins;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class DBAmmunitionService implements AmmunitionService {
     private static String URL = "jdbc:mysql://localhost:3306/ammunition";
     private static String USERNAME = "root";
     private static String PASSWORD = "lololo123";
 
+    private Connection connection;
+    private String getAllStatement = "SELECT name, weight, price, type FROM ammunition WHERE 1";
+    private PreparedStatement getAll;
+
+    public DBAmmunitionService() throws Exception {
+        Driver driver = new Driver();
+        DriverManager.registerDriver(driver);
+        connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        if (connection.isClosed()) {
+            throw new RuntimeException("Can't connect to the Database");
+        }
+        getAll = connection.prepareStatement(getAllStatement);
+    }
+
     @Override
-    public List<Ammunition> getAmmunition() {
-        try {
-            Driver driver = new Driver();
-            DriverManager.registerDriver(driver);
-            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            if (!connection.isClosed()) {
-                System.out.println("Connected to the database!");
-                connection.close();
-                System.out.println("Connection closed!");
+    public ArrayList<Ammunition> getAllAmmunition() throws Exception {
+        ResultSet result = getAll.executeQuery();
+        ArrayList<Ammunition> ammunition = new ArrayList<>();
+        while ( result.next()) {
+            String name = result.getString("name");
+            double weight = result.getDouble("weight");
+            int price = result.getInt("price");
+            int type = result.getInt("type");
+            switch (type) {
+                case 1:
+                    ammunition.add(new Helmet(name, price, weight));
+                    break;
+                case 2:
+                    ammunition.add(new Chestplate(name, price, weight));
+                    break;
+                case 3:
+                    ammunition.add(new Leggins(name, price, weight));
+                    break;
+                case 4:
+                    ammunition.add(new Boots(name, price, weight));
+                    break;
+                default:
+                    throw new RuntimeException("No such ammunition type");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        }
+        return ammunition;
+    }
+
+    @Override
+    public ArrayList<Ammunition> getAmmunitionInPriceDiapason(int lower, int upper) throws SQLException{
+        if (!connection.isClosed()) {
+            System.out.println("Connected to the database!");
+            connection.close();
+            System.out.println("Connection closed!");
         }
         return null;
     }

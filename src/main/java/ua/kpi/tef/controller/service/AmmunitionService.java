@@ -2,8 +2,9 @@ package ua.kpi.tef.controller.service;
 
 import ua.kpi.tef.model.entities.ammunition.Ammunition;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface AmmunitionService {
-    List<Ammunition> getAmmunition();
+    ArrayList<Ammunition> getAllAmmunition() throws Exception;
+    ArrayList<Ammunition> getAmmunitionInPriceDiapason(int lower, int upper) throws Exception;
 }
