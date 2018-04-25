@@ -1,7 +1,9 @@
 package ua.kpi.tef.model.entities.ammunition.armor;
 
+import ua.kpi.tef.exception.InvalidDataException;
+
 public class Leggins extends  Armor {
-    public Leggins(String name, int price, double weight) {
+    public Leggins(String name, int price, double weight) throws InvalidDataException {
         super(name, price, weight);
     }
 }

@@ -8,6 +8,7 @@ import ua.kpi.tef.model.entities.ammunition.armor.Leggins;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DBAmmunitionService implements AmmunitionService {
     private static String URL = "jdbc:mysql://localhost:3306/ammunition";
@@ -54,6 +55,7 @@ public class DBAmmunitionService implements AmmunitionService {
                     throw new RuntimeException("No such ammunition type");
             }
         }
+        Collections.sort(ammunition);
         return ammunition;
     }
 
