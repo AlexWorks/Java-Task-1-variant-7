@@ -1,6 +1,8 @@
 package ua.kpi.tef.controller.service;
 import com.mysql.jdbc.Driver;
 import ua.kpi.tef.model.entities.ammunition.Ammunition;
+import ua.kpi.tef.model.entities.ammunition.Shield;
+import ua.kpi.tef.model.entities.ammunition.Weapon;
 import ua.kpi.tef.model.entities.ammunition.armor.Boots;
 import ua.kpi.tef.model.entities.ammunition.armor.Chestplate;
 import ua.kpi.tef.model.entities.ammunition.armor.Helmet;
@@ -51,21 +53,17 @@ public class DBAmmunitionService implements AmmunitionService {
                 case 4:
                     ammunition.add(new Boots(name, price, weight));
                     break;
+                case 5:
+                    ammunition.add(new Weapon(name, price, weight));
+                    break;
+                case 6:
+                    ammunition.add(new Shield(name, price, weight));
+                    break;
                 default:
                     throw new RuntimeException("No such ammunition type");
             }
         }
         Collections.sort(ammunition);
         return ammunition;
-    }
-
-    @Override
-    public ArrayList<Ammunition> getAmmunitionInPriceDiapason(int lower, int upper) throws SQLException{
-        if (!connection.isClosed()) {
-            System.out.println("Connected to the database!");
-            connection.close();
-            System.out.println("Connection closed!");
-        }
-        return null;
     }
 }
