@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Servlet extends HttpServlet {
@@ -42,28 +41,26 @@ public class Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher(APP).forward(req, resp);
+        processRequest(req, resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        doGet(req, resp);
+        processRequest(req, resp);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String path = request.getRequestURI();
-        System.out.println(path);
-        path = path.replaceAll(".*/app/" , "");
-        System.out.println(path);
-        Command command = commands.getOrDefault(path ,
-                (r, model)->"/index.jsp)");
+        String commandName = request.getParameter("SERVLET_COMMAND_NAME");
+        System.out.println(commandName);
+        Command command = commands.getOrDefault(commandName ,
+                (r, model)->"app.jsp");
         String page = command.execute(request, model);
-        if (page.contains("redirect")){
-            response.sendRedirect(page.replace("redirect:", "/api"));
-        }else {
-            request.getRequestDispatcher(page).forward(request, response);
-        }
+        request.setAttribute("ammunition", model.getAllAmmunition());
+        request.setAttribute("knight", model.getKnight());
+        request.setAttribute("lower", model.getLowerPrice());
+        request.setAttribute("upper", model.getUpperPrice());
+        request.getRequestDispatcher(page).forward(request, response);
     }
 }
