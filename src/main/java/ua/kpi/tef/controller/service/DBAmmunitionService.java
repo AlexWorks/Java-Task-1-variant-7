@@ -1,12 +1,8 @@
 package ua.kpi.tef.controller.service;
 import com.mysql.jdbc.Driver;
+import ua.kpi.tef.controller.AmmunitionFactory;
+import ua.kpi.tef.controller.enums.AmmunitionType;
 import ua.kpi.tef.model.entities.ammunition.Ammunition;
-import ua.kpi.tef.model.entities.ammunition.Shield;
-import ua.kpi.tef.model.entities.ammunition.Weapon;
-import ua.kpi.tef.model.entities.ammunition.armor.Boots;
-import ua.kpi.tef.model.entities.ammunition.armor.Chestplate;
-import ua.kpi.tef.model.entities.ammunition.armor.Helmet;
-import ua.kpi.tef.model.entities.ammunition.armor.Leggins;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -39,29 +35,10 @@ public class DBAmmunitionService implements AmmunitionService {
             String name = result.getString("name");
             double weight = result.getDouble("weight");
             int price = result.getInt("price");
-            int type = result.getInt("type");
-            switch (type) {
-                case 1:
-                    ammunition.add(new Helmet(name, price, weight));
-                    break;
-                case 2:
-                    ammunition.add(new Chestplate(name, price, weight));
-                    break;
-                case 3:
-                    ammunition.add(new Leggins(name, price, weight));
-                    break;
-                case 4:
-                    ammunition.add(new Boots(name, price, weight));
-                    break;
-                case 5:
-                    ammunition.add(new Weapon(name, price, weight));
-                    break;
-                case 6:
-                    ammunition.add(new Shield(name, price, weight));
-                    break;
-                default:
-                    throw new RuntimeException("No such ammunition type");
-            }
+            String type = result.getString("type");
+            AmmunitionType ammunitionType = AmmunitionType.getType(type);
+            AmmunitionFactory factory = new AmmunitionFactory();
+            ammunition.add(factory.createAmmunition(ammunitionType, name, price, weight));
         }
         Collections.sort(ammunition);
         return ammunition;
