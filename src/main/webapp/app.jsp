@@ -41,10 +41,10 @@
         Boots: <%=knight.getBoots() == null ? "empty" : knight.getBoots()%>
     </div>
     <div>
-        Weapon: <%=knight.getBoots() == null ? "empty" : knight.getWeapon()%>
+        Weapon: <%=knight.getWeapon() == null ? "empty" : knight.getWeapon()%>
     </div>
     <div>
-        Shield: <%=knight.getBoots() == null ? "empty" : knight.getShield()%>
+        Shield: <%=knight.getShield() == null ? "empty" : knight.getShield()%>
     </div>
 </div>
 <br/>
