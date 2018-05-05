@@ -1,6 +1,6 @@
 package ua.kpi.tef.model;
 
-import ua.kpi.tef.model.entities.Knight;
+import ua.kpi.tef.model.entities.knight.Knight;
 import ua.kpi.tef.model.entities.ammunition.Ammunition;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class Model {
     }
 
     public void equipItem(Ammunition item) {
-        knight.equipAmmunition(item);
+        knight.equip(item);
     }
 
     public ArrayList<Ammunition> getAllAmmunition() {

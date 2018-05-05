@@ -1,14 +1,14 @@
-package ua.kpi.tef.model.entities;
+package ua.kpi.tef.model.entities.knight;
 
-import ua.kpi.tef.model.entities.ammunition.Ammunition;
 import ua.kpi.tef.model.entities.ammunition.Shield;
+import ua.kpi.tef.model.entities.ammunition.AmmunitionVisitor;
 import ua.kpi.tef.model.entities.ammunition.Weapon;
 import ua.kpi.tef.model.entities.ammunition.armor.Boots;
 import ua.kpi.tef.model.entities.ammunition.armor.Chestplate;
 import ua.kpi.tef.model.entities.ammunition.armor.Helmet;
 import ua.kpi.tef.model.entities.ammunition.armor.Leggins;
 
-public class Knight {
+public class Knight implements KnightElement {
     private Helmet helmet = null;
     private Chestplate chestplate = null;
     private Leggins leggins = null;
@@ -64,20 +64,8 @@ public class Knight {
         this.shield = shield;
     }
 
-    public void equipAmmunition(Ammunition item) {
-        if (item instanceof Helmet) {
-            helmet = (Helmet) item;
-        } else if (item instanceof Chestplate) {
-            chestplate = (Chestplate) item;
-        } else if (item instanceof Leggins) {
-            leggins = (Leggins) item;
-        } else if (item instanceof Boots) {
-            boots = (Boots) item;
-        } else if (item instanceof Weapon) {
-            weapon = (Weapon) item;
-        } else if (item instanceof Shield) {
-            shield = (Shield) item;
-        }
+    public void equip(AmmunitionVisitor item) {
+        item.visit(this);
     }
 
     public int getOverallPrice() {

@@ -2,7 +2,7 @@ package ua.kpi.tef.model.entities.ammunition;
 
 import ua.kpi.tef.exception.InvalidDataException;
 
-public abstract class Ammunition implements Comparable<Ammunition>  {
+public abstract class Ammunition implements Comparable<Ammunition>, AmmunitionVisitor {
     private String name;
     private int price;
     private double weight;
