@@ -1,6 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="ua.kpi.tef.model.entities.ammunition.Ammunition" %>
 <%@ page import="ua.kpi.tef.model.entities.knight.Knight" %>
+<%@ page import="ua.kpi.tef.controller.bundlemanager.BundleManager" %>
+<%@ page import="ua.kpi.tef.BundlesKeys" %>
+<%@ page import="ua.kpi.tef.TextConstants" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -10,10 +13,16 @@
 </head>
 <body>
 <%
-    ArrayList<Ammunition> ammunition = (ArrayList<Ammunition>) request.getAttribute("ammunition");
-    Knight knight = (Knight) request.getAttribute("knight");
+    ArrayList<Ammunition> ammunition = (ArrayList<Ammunition>) request.getAttribute(TextConstants.AMMUNITION);
+    Knight knight = (Knight) request.getAttribute(TextConstants.KNIGHT_OBJECT);
+    BundleManager manager = new BundleManager();
 %>
-<h1>Welcome to App!</h1>
+<h1><%=manager.getString(BundlesKeys.WELCOME)%></h1>
+<div id="languages">
+    <div data-language="uk" class="lang">Українська</div>
+    <div data-language="en" class="lang">English</div>
+</div>
+<br>
 <div class="item-container">
     <% for (Ammunition item : ammunition) { %>
     <div class="item"
@@ -22,34 +31,50 @@
          data-weight="<%=item.getWeight()%>"
          data-price="<%=item.getPrice()%>"
     >
-        <%=item.getName()%>
+        <%=manager.getString(BundlesKeys.TYPE)%>: <%=manager.getString(item.getClass().getSimpleName().toLowerCase())%><br>
+        <%=manager.getString(BundlesKeys.NAME)%>: <%=item.getName()%><br>
+        <%=manager.getString(BundlesKeys.PRICE)%>: <%=item.getPrice()%><br>
+        <%=manager.getString(BundlesKeys.WEIGHT)%>: <%=item.getWeight()%><br>
     </div>
+    <br>
     <% } %>
 </div>
 <br/>
 <div class="knight">
     <div>
-        Helmet: <%=knight.getHelmet() == null ? "empty" : knight.getHelmet()%>
+        <%=manager.getString(BundlesKeys.HELMET)%>:
+        <% Ammunition item = knight.getHelmet();%>
+        <%@include file="item.jsp"%>
     </div>
     <div>
-        Chestplate: <%=knight.getChestplate() == null ? "empty" : knight.getChestplate()%>
+        <%=manager.getString(BundlesKeys.CHESTPLATE)%>:
+        <% item = knight.getChestplate();%>
+        <%@include file="item.jsp"%>
     </div>
     <div>
-        Leggins: <%=knight.getLeggins() == null ? "empty" : knight.getLeggins()%>
+        <%=manager.getString(BundlesKeys.LEGGINS)%>:
+        <%  item = knight.getLeggins();%>
+        <%@include file="item.jsp"%>
     </div>
     <div>
-        Boots: <%=knight.getBoots() == null ? "empty" : knight.getBoots()%>
+        <%=manager.getString(BundlesKeys.BOOTS)%>:
+        <%  item = knight.getBoots();%>
+        <%@include file="item.jsp"%>
     </div>
     <div>
-        Weapon: <%=knight.getWeapon() == null ? "empty" : knight.getWeapon()%>
+        <%=manager.getString(BundlesKeys.WEAPON)%>:
+        <%  item = knight.getWeapon();%>
+        <%@include file="item.jsp"%>
     </div>
     <div>
-        Shield: <%=knight.getShield() == null ? "empty" : knight.getShield()%>
+        <%=manager.getString(BundlesKeys.SHIELD)%>:
+        <%  item = knight.getShield();%>
+        <%@include file="item.jsp"%>
     </div>
 </div>
 <br/>
 <div class="overall-price">
-    Overall price: <%=knight.getOverallPrice()%>
+    <%=manager.getString(BundlesKeys.OVERALL_PRICE)%>: <%=knight.getOverallPrice()%>
 </div>
 <br/>
 <form id="filter" method="POST" action="app">
@@ -57,5 +82,16 @@
     <input type="number" name="upper" value='<%=request.getAttribute("upper")%>'>
     <button type="submit">Submit</button>
 </form>
+<% if (request.getAttribute(TextConstants.FILTER_ERROR) != null) { %>
+<div style="color: red">
+    <%=request.getAttribute(TextConstants.FILTER_ERROR)%>
+</div>
+<% } %>
+<% if (request.getAttribute(TextConstants.EQUIP_ERROR) != null) { %>
+<div style="color: red">
+    <%=request.getAttribute(TextConstants.EQUIP_ERROR)%>
+</div>
+<% } %>
+</div>
 </body>
 </html>

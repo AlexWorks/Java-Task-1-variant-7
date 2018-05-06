@@ -1,5 +1,7 @@
 package ua.kpi.tef.controller;
 
+import ua.kpi.tef.TextConstants;
+import ua.kpi.tef.controller.command.ChangeLanguage;
 import ua.kpi.tef.controller.command.Command;
 import ua.kpi.tef.controller.command.EquipItem;
 import ua.kpi.tef.controller.command.FilterItems;
@@ -19,7 +21,6 @@ import java.util.Map;
 
 public class Servlet extends HttpServlet {
     private Model model;
-    private String APP = "app.jsp";
     private AmmunitionService service;
     private ArrayList<Ammunition> data;
     private Map<String, Command> commands = new HashMap<>();
@@ -36,6 +37,7 @@ public class Servlet extends HttpServlet {
         model = new Model(this.data);
         commands.put("filter", new FilterItems());
         commands.put("equip", new EquipItem());
+        commands.put("language", new ChangeLanguage());
     }
 
     @Override
@@ -52,15 +54,19 @@ public class Servlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String commandName = request.getParameter("SERVLET_COMMAND_NAME");
+        String commandName = request.getParameter(TextConstants.SERVER_COMMAND_NAME);
         System.out.println(commandName);
         Command command = commands.getOrDefault(commandName ,
-                (r, model)->"app.jsp");
+                (r, model)->TextConstants.DEFAULT_PAGE);
         String page = command.execute(request, model);
-        request.setAttribute("ammunition", model.getAllAmmunition());
-        request.setAttribute("knight", model.getKnight());
-        request.setAttribute("lower", model.getLowerPrice());
-        request.setAttribute("upper", model.getUpperPrice());
+        setRequestAttributes(request);
         request.getRequestDispatcher(page).forward(request, response);
+    }
+
+    private void setRequestAttributes(HttpServletRequest request) {
+        request.setAttribute(TextConstants.AMMUNITION, model.getAllAmmunition());
+        request.setAttribute(TextConstants.KNIGHT_OBJECT, model.getKnight());
+        request.setAttribute(TextConstants.PRICE_FILTER_LOWER_BOUND, model.getLowerPrice());
+        request.setAttribute(TextConstants.PRICE_FILTER_UPPER_BOUND, model.getUpperPrice());
     }
 }

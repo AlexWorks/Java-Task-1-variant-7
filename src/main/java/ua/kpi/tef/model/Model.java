@@ -1,5 +1,6 @@
 package ua.kpi.tef.model;
 
+import ua.kpi.tef.exception.InvalidDiapasonException;
 import ua.kpi.tef.model.entities.knight.Knight;
 import ua.kpi.tef.model.entities.ammunition.Ammunition;
 
@@ -21,14 +22,15 @@ public class Model {
         this.sortItems();
     }
 
-    public void filterItemsInDiapason(int lower, int upper) {
-        if (lower > upper) return;
-        if (lower == 0 && upper == 0) return;
+    public void filterItemsInDiapason(int lower, int upper) throws InvalidDiapasonException {
+        if (lower > upper) throw new InvalidDiapasonException(lower, upper);
+        if (lower == 0 && upper == 0) throw new InvalidDiapasonException(lower, upper);
         lowerPriceBound = lower;
         upperPriceBound = upper;
         currentAmmuniton = allAmmunition.stream()
                 .filter((item) -> item.getPrice() >= lower && item.getPrice() <= upper)
                 .collect(Collectors.toCollection(ArrayList::new));
+        sortItems();
     }
 
     private void sortItems() {

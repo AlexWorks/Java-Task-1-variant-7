@@ -2,6 +2,10 @@
 document.addEventListener('DOMContentLoaded', (e) => {
     const containerElem = document.querySelector(".item-container");
     containerElem.addEventListener('click', clickHandler, false);
+
+    const languagesElem = document.getElementById("languages");
+    languagesElem.addEventListener('click', languageHandler, false);
+
     const form = document.getElementById('filter');
     form.addEventListener('submit', (e) => {
         const field = document.createElement('input');
@@ -20,6 +24,23 @@ document.addEventListener('DOMContentLoaded', (e) => {
         console.log(element);
         sendItem(element);
     }
+    function languageHandler(e) {
+        let element = e.target;
+        while (!element.classList.contains('lang') && element !== languagesElem) {
+            element = element.parentElement;
+        }
+        if (!element.classList.contains('lang')) return;
+        console.log(element);
+        changeLanguage(element);
+    }
+    function changeLanguage(element) {
+        const data = {
+            'language': element.dataset.language,
+            'SERVLET_COMMAND_NAME': 'language'
+        };
+
+        post('/app', data, 'POST');
+    }
     function sendItem(element) {
         const data = {
             'type': element.dataset.type,
@@ -31,7 +52,6 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
         post('/app', data, 'POST');
     }
-
     function post(path, params, method) {
         method = method || "post";
         let form = document.createElement("form");
