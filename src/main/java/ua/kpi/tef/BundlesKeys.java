@@ -14,4 +14,5 @@ public interface BundlesKeys {
     String WEIGHT = "weight";
     String OVERALL_PRICE = "overall.price";
     String EMPTY = "empty";
+    String SUBMIT = "submit";
 }

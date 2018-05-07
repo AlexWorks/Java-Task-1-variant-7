@@ -21,7 +21,6 @@ public class EquipItem implements Command {
             double weight = Double.parseDouble(request.getParameter(TextConstants.AMMUNITION_WEIGHT));
             AmmunitionFactory factory = new AmmunitionFactory();
             model.equipItem(factory.createAmmunition(ammunitionType, name, price, weight));
-
         } catch (Exception e) {
             request.setAttribute(TextConstants.EQUIP_ERROR, "Ammunition equip failed for some reason. Please try again.");
             return TextConstants.DEFAULT_PAGE;

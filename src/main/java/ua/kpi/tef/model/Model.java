@@ -24,7 +24,7 @@ public class Model {
 
     public void filterItemsInDiapason(int lower, int upper) throws InvalidDiapasonException {
         if (lower > upper) throw new InvalidDiapasonException(lower, upper);
-        if (lower == 0 && upper == 0) throw new InvalidDiapasonException(lower, upper);
+        if (upper <= 0 || lower < 0) throw new InvalidDiapasonException(lower, upper);
         lowerPriceBound = lower;
         upperPriceBound = upper;
         currentAmmuniton = allAmmunition.stream()
