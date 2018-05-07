@@ -18,43 +18,59 @@
     Knight knight = (Knight) request.getAttribute(TextConstants.KNIGHT_OBJECT);
     BundleManager manager = new BundleManager();
 %>
-<h1><%=manager.getString(BundlesKeys.WELCOME)%></h1>
-<div id="languages">
-    <div data-language="uk" class="lang">Українська</div>
-    <div data-language="en" class="lang">English</div>
+<div class="header">
+    <h1><%=manager.getString(BundlesKeys.WELCOME)%></h1>
+    <div id="languages">
+        <div data-language="uk" class="lang">Українська</div>
+        <div data-language="en" class="lang">English</div>
+    </div>
 </div>
 <br>
 <div class="app-container">
     <div class="knight">
-        <div class="equipment">
-            <%=manager.getString(BundlesKeys.HELMET)%>:
-            <% Ammunition item = knight.getHelmet();%>
-            <%@include file="item.jsp"%>
-        </div>
-        <div class="equipment">
-            <%=manager.getString(BundlesKeys.CHESTPLATE)%>:
-            <% item = knight.getChestplate();%>
-            <%@include file="item.jsp"%>
-        </div>
-        <div class="equipment">
-            <%=manager.getString(BundlesKeys.LEGGINS)%>:
-            <%  item = knight.getLeggins();%>
-            <%@include file="item.jsp"%>
-        </div>
-        <div class="equipment">
-            <%=manager.getString(BundlesKeys.BOOTS)%>:
-            <%  item = knight.getBoots();%>
-            <%@include file="item.jsp"%>
-        </div>
-        <div class="equipment">
-            <%=manager.getString(BundlesKeys.WEAPON)%>:
-            <%  item = knight.getWeapon();%>
-            <%@include file="item.jsp"%>
-        </div>
-        <div class="equipment">
-            <%=manager.getString(BundlesKeys.SHIELD)%>:
-            <%  item = knight.getShield();%>
-            <%@include file="item.jsp"%>
+        <div class="equipment-container">
+            <div class="equipment">
+                <div class="info-wrapper">
+                <%=manager.getString(BundlesKeys.HELMET)%>:
+                <% Ammunition item = knight.getHelmet();%>
+                <%@include file="item.jsp"%>
+                </div>
+            </div>
+            <div class="equipment">
+                <div class="info-wrapper">
+                <%=manager.getString(BundlesKeys.CHESTPLATE)%>:
+                <% item = knight.getChestplate();%>
+                <%@include file="item.jsp"%>
+                </div>
+            </div>
+            <div class="equipment">
+                <div class="info-wrapper">
+                <%=manager.getString(BundlesKeys.LEGGINS)%>:
+                <%  item = knight.getLeggins();%>
+                <%@include file="item.jsp"%>
+                </div>
+            </div>
+            <div class="equipment">
+                <div class="info-wrapper">
+                <%=manager.getString(BundlesKeys.BOOTS)%>:
+                <%  item = knight.getBoots();%>
+                <%@include file="item.jsp"%>
+                </div>
+            </div>
+            <div class="equipment">
+                <div class="info-wrapper">
+                <%=manager.getString(BundlesKeys.WEAPON)%>:
+                <%  item = knight.getWeapon();%>
+                <%@include file="item.jsp"%>
+                </div>
+            </div>
+            <div class="equipment">
+                <div class="info-wrapper">
+                <%=manager.getString(BundlesKeys.SHIELD)%>:
+                <%  item = knight.getShield();%>
+                <%@include file="item.jsp"%>
+                </div>
+            </div>
         </div>
         <div class="overall-price">
             <%=manager.getString(BundlesKeys.OVERALL_PRICE)%>: <%=knight.getOverallPrice()%>
@@ -69,18 +85,24 @@
                  data-weight="<%=value.getWeight()%>"
                  data-price="<%=value.getPrice()%>"
             >
-                <%=manager.getString(BundlesKeys.TYPE)%>: <%=manager.getString(value.getClass().getSimpleName().toLowerCase())%><br>
-                <%=manager.getString(BundlesKeys.NAME)%>: <%=value.getName()%><br>
-                <%=manager.getString(BundlesKeys.PRICE)%>: <%=value.getPrice()%><br>
-                <%=manager.getString(BundlesKeys.WEIGHT)%>: <%=value.getWeight()%><br>
+                <div class="info-wrapper">
+                    <div class="info"><%=manager.getString(BundlesKeys.TYPE)%>: <%=manager.getString(value.getClass().getSimpleName().toLowerCase())%></div>
+                    <div class="info"><%=manager.getString(BundlesKeys.NAME)%>: <%=value.getName()%></div>
+                    <div class="info"><%=manager.getString(BundlesKeys.PRICE)%>: <%=value.getPrice()%></div>
+                    <div class="info"><%=manager.getString(BundlesKeys.WEIGHT)%>: <%=value.getWeight()%></div>
+                </div>
             </div>
-            <br>
             <% } %>
         </div>
         <form id="filter" method="POST" action="app">
-            <input type="text" name="lower" value='<%=request.getAttribute("lower")%>'>
-            <input type="text" name="upper" value='<%=request.getAttribute("upper")%>'>
-            <button type="submit"><%=manager.getString(BundlesKeys.SUBMIT)%></button>
+            <div class="input-wrapper">
+                <div class="input-info">Price Diapason:</div>
+                <input type="text" name="lower" value='<%=request.getAttribute("lower")%>'>
+                <div class="dash">-</div>
+                <input type="text" name="upper" value='<%=request.getAttribute("upper")%>'>
+                <button type="submit"><%=manager.getString(BundlesKeys.SUBMIT)%></button>
+            </div>
+
         </form>
     </div>
 </div>
