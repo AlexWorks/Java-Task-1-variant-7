@@ -28,7 +28,7 @@ form button {
     background: none;
     display: block;
     font: inherit;
-    font-size: 1em;
+    font-size: .85em;
     line-height: normal;
     cursor: pointer;
 
@@ -37,6 +37,7 @@ form button {
     font-weight: bold;
     width: auto;
     margin-left: auto;
+    margin-right: 26px;
     font-weight: bold;
     padding: .75em 2em;
 }
@@ -45,11 +46,30 @@ form button {
     margin-left: auto;
     cursor: pointer;
     align-self: center;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin-right: 26px;
+}
+
+.lang {
+    width: 20px;
+    height: 20px;
+    display: block;
+}
+
+.lang[data-language="uk"] {
+    background: url("./../images/ukraine.svg");
+    margin-right: 10px;
+}
+
+.lang[data-language="en"] {
+    background: url("./../images/united-kingdom.svg");
 }
 
 #filter input:not([name="SERVLET_COMMAND_NAME"]), #filter .dash, #filter .input-info, .overall-price {
     width: 50px;
-    padding: .75em 1em;
+    padding: .75em .65em;
     appearance: none;
     outline: none;
     line-height: normal;
@@ -70,8 +90,24 @@ form button {
     width: max-content;
 }
 
+.empty-place {
+    font-size: 42px;
+    text-align: center;
+    line-height: var(--item-height);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 .overall-price {
     width: max-content;
+}
+
+.ammunition-icon {
+    padding-top: 25px;
+    height: calc(var(--item-height) / 2);
+    margin-right: 20px;
+    float: left;
 }
 
 
@@ -126,6 +162,7 @@ form button {
 
 .item .info-wrapper, .equipment .info-wrapper {
    height: var(--item-height);
+    position: relative;
 }
 
 .item:not(:last-of-type):after, .equipment:not(:last-of-type):after {

@@ -6,12 +6,12 @@ import ua.kpi.tef.model.entities.ammunition.Weapon;
 import ua.kpi.tef.model.entities.ammunition.armor.Boots;
 import ua.kpi.tef.model.entities.ammunition.armor.Chestplate;
 import ua.kpi.tef.model.entities.ammunition.armor.Helmet;
-import ua.kpi.tef.model.entities.ammunition.armor.Leggins;
+import ua.kpi.tef.model.entities.ammunition.armor.Leggings;
 
 public class Knight implements KnightElement {
     private Helmet helmet = null;
     private Chestplate chestplate = null;
-    private Leggins leggins = null;
+    private Leggings leggings = null;
     private Boots boots = null;
     private Weapon weapon = null;
     private Shield shield = null;
@@ -32,12 +32,12 @@ public class Knight implements KnightElement {
         this.chestplate = chestplate;
     }
 
-    public Leggins getLeggins() {
-        return leggins;
+    public Leggings getLeggings() {
+        return leggings;
     }
 
-    public void setLeggins(Leggins leggins) {
-        this.leggins = leggins;
+    public void setLeggings(Leggings leggings) {
+        this.leggings = leggings;
     }
 
     public Boots getBoots() {
@@ -72,7 +72,7 @@ public class Knight implements KnightElement {
         int sum = 0;
         sum += helmet != null ? helmet.getPrice() : 0;
         sum += chestplate != null ? chestplate.getPrice() : 0;
-        sum += leggins != null ? leggins.getPrice() : 0;
+        sum += leggings != null ? leggings.getPrice() : 0;
         sum += boots != null ? boots.getPrice() : 0;
         sum += weapon != null ? weapon.getPrice() : 0;
         sum += shield != null ? shield.getPrice() : 0;

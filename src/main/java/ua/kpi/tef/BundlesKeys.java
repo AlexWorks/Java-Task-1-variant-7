@@ -4,7 +4,7 @@ public interface BundlesKeys {
     String WELCOME = "welcome";
     String HELMET = "helmet";
     String CHESTPLATE = "chestplate";
-    String LEGGINS = "leggins";
+    String LEGGINGS = "leggings";
     String BOOTS = "boots";
     String WEAPON = "weapon";
     String SHIELD = "shield";
@@ -15,4 +15,5 @@ public interface BundlesKeys {
     String OVERALL_PRICE = "overall.price";
     String EMPTY = "empty";
     String SUBMIT = "submit";
+    String PRICE_DIAPASON = "diapason";
 }

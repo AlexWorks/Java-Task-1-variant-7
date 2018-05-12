@@ -1,5 +1,6 @@
 package ua.kpi.tef.controller.service;
 import com.mysql.jdbc.Driver;
+import ua.kpi.tef.TextConstants;
 import ua.kpi.tef.controller.AmmunitionFactory;
 import ua.kpi.tef.controller.enums.AmmunitionType;
 import ua.kpi.tef.model.entities.ammunition.Ammunition;
@@ -32,10 +33,10 @@ public class DBAmmunitionService implements AmmunitionService {
         ResultSet result = getAll.executeQuery();
         ArrayList<Ammunition> ammunition = new ArrayList<>();
         while ( result.next()) {
-            String name = result.getString("name");
-            double weight = result.getDouble("weight");
-            int price = result.getInt("price");
-            String type = result.getString("type");
+            String name = result.getString(TextConstants.AMMUNITION_NAME);
+            double weight = result.getDouble(TextConstants.AMMUNITION_WEIGHT);
+            int price = result.getInt(TextConstants.AMMUNITION_PRICE);
+            String type = result.getString(TextConstants.AMMUNITION_TYPE);
             AmmunitionType ammunitionType = AmmunitionType.getType(type);
             AmmunitionFactory factory = new AmmunitionFactory();
             ammunition.add(factory.createAmmunition(ammunitionType, name, price, weight));

@@ -2,7 +2,7 @@ package ua.kpi.tef.controller.enums;
 public enum AmmunitionType {
     HELMET("Helmet"),
     CHESTPLATE("Chestplate"),
-    LEGGINS("Leggins"),
+    LEGGINS("Leggings"),
     BOOTS("Boots"),
     WEAPON("Weapon"),
     SHIELD("Shield");
@@ -17,7 +17,7 @@ public enum AmmunitionType {
         switch (type) {
             case "Helmet": return HELMET;
             case "Chestplate": return CHESTPLATE;
-            case "Leggins": return LEGGINS;
+            case "Leggings": return LEGGINS;
             case "Boots": return BOOTS;
             case "Weapon": return WEAPON;
             case "Shield": return SHIELD;

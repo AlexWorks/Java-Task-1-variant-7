@@ -21,8 +21,8 @@
 <div class="header">
     <h1><%=manager.getString(BundlesKeys.WELCOME)%></h1>
     <div id="languages">
-        <div data-language="uk" class="lang">Українська</div>
-        <div data-language="en" class="lang">English</div>
+        <div data-language="uk" class="lang"></div>
+        <div data-language="en" class="lang"></div>
     </div>
 </div>
 <br>
@@ -31,43 +31,43 @@
         <div class="equipment-container">
             <div class="equipment">
                 <div class="info-wrapper">
-                <%=manager.getString(BundlesKeys.HELMET)%>:
                 <% Ammunition item = knight.getHelmet();%>
+                    <img class="ammunition-icon" src="./view/images/Helmet.png">
                 <%@include file="item.jsp"%>
                 </div>
             </div>
             <div class="equipment">
                 <div class="info-wrapper">
-                <%=manager.getString(BundlesKeys.CHESTPLATE)%>:
                 <% item = knight.getChestplate();%>
+                    <img class="ammunition-icon" src="./view/images/Chestplate.png">
                 <%@include file="item.jsp"%>
                 </div>
             </div>
             <div class="equipment">
                 <div class="info-wrapper">
-                <%=manager.getString(BundlesKeys.LEGGINS)%>:
-                <%  item = knight.getLeggins();%>
+                <%  item = knight.getLeggings();%>
+                    <img class="ammunition-icon" src="./view/images/Leggings.png">
                 <%@include file="item.jsp"%>
                 </div>
             </div>
             <div class="equipment">
                 <div class="info-wrapper">
-                <%=manager.getString(BundlesKeys.BOOTS)%>:
                 <%  item = knight.getBoots();%>
+                    <img class="ammunition-icon" src="./view/images/Boots.png">
                 <%@include file="item.jsp"%>
                 </div>
             </div>
             <div class="equipment">
                 <div class="info-wrapper">
-                <%=manager.getString(BundlesKeys.WEAPON)%>:
                 <%  item = knight.getWeapon();%>
+                    <img class="ammunition-icon" src="./view/images/Weapon.png">
                 <%@include file="item.jsp"%>
                 </div>
             </div>
             <div class="equipment">
                 <div class="info-wrapper">
-                <%=manager.getString(BundlesKeys.SHIELD)%>:
                 <%  item = knight.getShield();%>
+                    <img class="ammunition-icon" src="./view/images/Shield.png">
                 <%@include file="item.jsp"%>
                 </div>
             </div>
@@ -85,8 +85,8 @@
                  data-weight="<%=value.getWeight()%>"
                  data-price="<%=value.getPrice()%>"
             >
+                <img class="ammunition-icon" src="<%="/view/images/" + value.getClass().getSimpleName() + ".png"%> ">
                 <div class="info-wrapper">
-                    <div class="info"><%=manager.getString(BundlesKeys.TYPE)%>: <%=manager.getString(value.getClass().getSimpleName().toLowerCase())%></div>
                     <div class="info"><%=manager.getString(BundlesKeys.NAME)%>: <%=value.getName()%></div>
                     <div class="info"><%=manager.getString(BundlesKeys.PRICE)%>: <%=value.getPrice()%></div>
                     <div class="info"><%=manager.getString(BundlesKeys.WEIGHT)%>: <%=value.getWeight()%></div>
@@ -96,7 +96,7 @@
         </div>
         <form id="filter" method="POST" action="app">
             <div class="input-wrapper">
-                <div class="input-info">Price Diapason:</div>
+                <div class="input-info"><%=manager.getString(BundlesKeys.PRICE_DIAPASON)%></div>
                 <input type="text" name="lower" value='<%=request.getAttribute("lower")%>'>
                 <div class="dash">-</div>
                 <input type="text" name="upper" value='<%=request.getAttribute("upper")%>'>
